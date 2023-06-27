@@ -498,12 +498,12 @@ void HDMI_in_detect() {
                     I2C_Write(ADDR_FPGA, 0x8C, 0x00);
 
                     if (vtmg == 1) {
-                        system("dispw -s vdpo 1080p50");
-                        g_hw_stat.vdpo_tmg = HW_VDPO_1080P50;
+                        system("dispw -s vdpo 1080p50"); // 60fps actualy
+                        g_hw_stat.vdpo_tmg = HW_VDPO_1080P60;
                         // I2C_Write(ADDR_FPGA, 0x8d, 0x10);
                         I2C_Write(ADDR_FPGA, 0x8e, 0x04);
                         I2C_Write(ADDR_AL, 0x14, 0x00);
-                        I2C_Write(ADDR_FPGA, 0x80, 0x00);
+                        I2C_Write(ADDR_FPGA, 0x80, 0x04);
 
                         OLED_SetTMG(0);
 
@@ -533,7 +533,7 @@ void HDMI_in_detect() {
                     if (cs < 63) // pclk_h
                         I2C_Write(ADDR_FPGA, 0x8d, 0x14);
                     else // pclk_l
-                        I2C_Write(ADDR_FPGA, 0x8d, 0x04);
+                        I2C_Write(ADDR_FPGA, 0x8d, 0x10);
                 }
 
                 cs = IT66021_Get_CS();
